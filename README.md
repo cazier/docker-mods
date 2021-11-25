@@ -1,10 +1,15 @@
-# Rsync - Docker mod for openssh-server
+# Config Mover - Universal Docker Mod
 
-This mod adds rsync to openssh-server, to be installed/updated during container start.
+This mod moves the configuration folder used by a number of linuxserver containers into a different location. This is
+used to minimize making a litany of volumes, when using docker-compose, since the standard containers all use the same
+configuration folder.
 
-In openssh-server docker arguments, set an environment variable `DOCKER_MODS=linuxserver/mods:openssh-server-rsync`
+>**NOTE:** Note an additional environment variable **must** be passed to the container: `LS_MOD_CONTAINER_NAME=<container_name>`. This will be the container name used for the nested directory.
+>**NOTE:** This mod supports Linux OSes only.
 
-If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=linuxserver/mods:openssh-server-rsync|linuxserver/mods:openssh-server-mod2`
+In any linuxserver docker arguments, set an environment variable `DOCKER_MODS=linuxserver/mods:universal-config_mover`
+
+If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=linuxserver/mods:universal-config_mover|linuxserver/mods:radarr-striptracks`
 
 # Mod creation instructions
 

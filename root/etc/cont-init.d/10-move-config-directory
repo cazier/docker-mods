@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bash
+
+# Determine if the folder already exists is needed
+if [ ! -d "/config_holder/$CONTAINER_NAME" ]; then
+  mkdir -p "/config_holder/$CONTAINER_NAME"
+
+  if [ -d "/config" ]; then
+    mv /config "/config_holder/$CONTAINER_NAME/config"
+    rm -rf /config
+  fi
+
+  if [ -L "/config" ]; then
+    ln -s /config "/config_holder/$CONTAINER_NAME/config"
+  fi
+fi
