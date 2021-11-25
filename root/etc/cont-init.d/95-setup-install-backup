@@ -1,16 +1,25 @@
 #!/usr/bin/with-contenv bash
 
-# Determine if the folder already exists is needed
-if [ ! -d "/config_holder/$CONTAINER_NAME" ]; then
-  echo "***** Creating a new configuration holder directory at /config_holder/$CONTAINER_NAME *****"
+# Determine if the backup folder already exists, and create it if needed
+if [ ! -d "/backup/$CONTAINER_NAME/" ]; then
+  echo "***** Creating a new configuration holder directory at /backup/$CONTAINER_NAME/ *****"
+  mkdir -p "/backup/$CONTAINER_NAME/"
+fi
 
-  mkdir -p "/config_holder/$CONTAINER_NAME"
-  echo "(DEBUG) $?"
+# Update apt as needed and install rsync
+if [ -f /usr/bin/apt ]; then
+    apt update
+fi
 
-  if [ ! -L "/config_holder/$CONTAINER_NAME" ]; then
-    echo "***** Creating symlink from /config to /config_holder/$CONTAINER_NAME/config *****"
-
-    ln -s /config "/config_holder/$CONTAINER_NAME/config"
-    echo "(DEBUG) $?"
-  fi
+if ! command -v git; then
+    # Ubuntu
+    if [ -f /usr/bin/apt ]; then
+        apt install --no-install-recommends -y rsync
+        apt autoremove
+        apt clean
+    fi
+    # Alpine
+    if [ -f /sbin/apk ]; then
+        apk add --no-cache rsync
+    fi
 fi

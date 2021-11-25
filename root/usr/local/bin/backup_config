@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bash
+
+rsync -a /config "/backup/$CONTAINER_NAME/"
