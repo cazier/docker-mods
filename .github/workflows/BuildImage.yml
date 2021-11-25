@@ -5,7 +5,7 @@ on: [push, pull_request, workflow_dispatch]
 env:
   ENDPOINT: "cazier/mods" #don't modify
   BASEIMAGE: "universal" #replace
-  MODNAME: "config_mover" #replace
+  MODNAME: "config_backup" #replace
 
 jobs:
   build:
