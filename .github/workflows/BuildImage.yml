@@ -3,7 +3,7 @@ name: Build Image
 on: [push, pull_request, workflow_dispatch]
 
 env:
-  ENDPOINT: "linuxserver/mods" #don't modify
+  ENDPOINT: "cazier/mods" #don't modify
   BASEIMAGE: "universal" #replace
   MODNAME: "config_mover" #replace
 
