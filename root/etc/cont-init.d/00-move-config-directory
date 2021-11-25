@@ -2,20 +2,13 @@
 
 # Determine if the folder already exists is needed
 if [ ! -d "/config_holder/$CONTAINER_NAME" ]; then
-  echo "***** Creating the new configuration holder directory at /config_holder/$CONTAINER_NAME *****"
+  echo "***** Creating a new configuration holder directory at /config_holder/$CONTAINER_NAME *****"
 
   mkdir -p "/config_holder/$CONTAINER_NAME"
   echo "(DEBUG) $?"
 
-  if [ -d "/config" ]; then
-    echo "***** Moving existing config directory (/config) to /config_holder/$CONTAINER_NAME/config *****"
-
-    mv /config "/config_holder/$CONTAINER_NAME/config"
-    echo "(DEBUG) $?"
-  fi
-
-  if [ -L "/config" ]; then
-    echo "***** Creating symlink from /config_holder/$CONTAINER_NAME/config to config directory (/config)*****"
+  if [ ! -L "/config_holder/$CONTAINER_NAME" ]; then
+    echo "***** Creating symlink from /config to /config_holder/$CONTAINER_NAME/config *****"
 
     ln -s /config "/config_holder/$CONTAINER_NAME/config"
     echo "(DEBUG) $?"
