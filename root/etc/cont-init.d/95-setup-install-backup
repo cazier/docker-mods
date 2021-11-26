@@ -7,13 +7,11 @@ if [ ! -d "/backup/$CONTAINER_NAME/" ]; then
 fi
 
 # Update apt as needed and install rsync
-if [ -f /usr/bin/apt ]; then
-    apt update
-fi
-
 if ! command -v git; then
     # Ubuntu
     if [ -f /usr/bin/apt ]; then
+        apt update
+
         apt install --no-install-recommends -y rsync
         apt autoremove
         apt clean
